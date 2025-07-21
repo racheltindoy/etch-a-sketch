@@ -20,6 +20,53 @@ for(let i = 0; i < 16; i++) {
 	linesColumnGrid.classList.add('column_grid');
 }
 
+function findAllXGridPositions() {
+	let xGrids = document.querySelectorAll('.row_grid');
+	let xGridsNum = xGrids.length;
+
+	let xBottomArray = [];
+
+	for(let i = 0; i<xGridsNum; i++) {
+		const x = xGrids[i].getBoundingClientRect();
+		const xBottom = x.bottom;
+
+		xBottomArray.push(xBottom);
+	}
+
+	return xBottomArray;
+}
+
+function findAllYGridPositions() {
+	let yGrids = document.querySelectorAll('.column_grid');
+	let yGridsNum = yGrids.length;
+
+	let yRightArray = [];
+
+	for(let i = 0; i<yGridsNum; i++) {
+		const y = yGrids[i].getBoundingClientRect();
+		const yRight = y.right;
+
+		yRightArray.push(yRight);
+	}
+
+	return yRightArray;
+}
+
+const xGrids = findAllXGridPositions();
+const yGrids = findAllYGridPositions();
+
+console.log(xGrids);
+console.log(yGrids);
+
+let x_grid = document.querySelectorAll('.row_grid');
+	const x = x_grid[0].getBoundingClientRect();
+	const xTop = x.bottom;
+	// console.log(xTop);
+
+	let x2_grid = document.querySelectorAll('.row_grid');
+	const x2 = x_grid[1].getBoundingClientRect();
+	const x2Top = x2.top;
+	// console.log(x2Top);
 
 
 // let isDrawing = false;
@@ -45,26 +92,18 @@ for(let i = 0; i < 16; i++) {
 // });
 
 
-let x_grid = document.querySelectorAll('.row_grid');
-const x = x_grid[0].getBoundingClientRect();
-const xTop = x.bottom;
-console.log(xTop);
 
-let x2_grid = document.querySelectorAll('.row_grid');
-const x2 = x_grid[1].getBoundingClientRect();
-const x2Top = x2.top;
-console.log(x2Top);
 
 
 let y_grid = document.querySelectorAll('.column_grid');
 const y = y_grid[0].getBoundingClientRect();
 const yTop = y.right;
-console.log(yTop);
+// console.log(yTop);
 
 let y2_grid = document.querySelectorAll('.column_grid');
 const y2 = y_grid[1].getBoundingClientRect();
 const y2Top = y2.left;
-console.log(y2Top);
+// console.log(y2Top);
 
 
 linesRow.addEventListener('click', () => {
@@ -74,6 +113,9 @@ linesRow.addEventListener('click', () => {
 
 	console.log("it's clicked");
 });
+
+
+
 
 // const rect = myDiv.getBoundingClientRect();
 
