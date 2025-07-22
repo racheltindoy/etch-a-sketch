@@ -1,12 +1,11 @@
 const body = document.querySelector('body');
 const linesRow = document.createElement('div');
 const linesColumn = document.createElement('div');
-const xGrids = findAllXGridPositions();
-const yGrids = findAllYGridPositions();
 linesRow.setAttribute('id', 'row');
 linesColumn.setAttribute('id', 'column');
 body.appendChild(linesRow);
 body.appendChild(linesColumn);
+
 
 // Create rows
 for(let i = 0; i < 16; i++) {
@@ -24,7 +23,6 @@ for(let i = 0; i < 16; i++) {
 }
 
 
-
 function findAllXGridPositions() {
 	let xGrids = document.querySelectorAll('.row_grid');
 	let xGridsNum = xGrids.length;
@@ -33,6 +31,7 @@ function findAllXGridPositions() {
 
 	for(let i = 0; i<xGridsNum; i++) {
 		const x = xGrids[i].getBoundingClientRect();
+		// const x = xGrids[i].offsetTop;
 		const xBottom = x.bottom;
 
 		xBottomArray.push(xBottom);
@@ -50,6 +49,7 @@ function findAllYGridPositions() {
 
 	for(let i = 0; i<yGridsNum; i++) {
 		const y = yGrids[i].getBoundingClientRect();
+		// const y = yGrids[i].offsetLeft;
 		const yRight = y.right;
 
 		yRightArray.push(yRight);
@@ -59,13 +59,11 @@ function findAllYGridPositions() {
 }
 
 
-console.log("X GRIDS: " + xGrids);
-console.log("Y GRIDS: " + yGrids);
-
-
-linesRow.addEventListener('click', (e) => {
-	console.log(xGrids);
-	console.log(yGrids);
+body.addEventListener('click', (e) => {
+	let xGrids = findAllXGridPositions();
+	let yGrids = findAllYGridPositions();
+	console.log("X GRIDS: " + xGrids);
+	console.log("Y GRIDS: " + yGrids);
 
 	const x = e.clientX;
 	const y = e.clientY;
@@ -87,8 +85,8 @@ linesRow.addEventListener('click', (e) => {
 			x2 = xGrids[j];
 			console.log("X1: " + x1);
 			console.log("X2: " + x2);
-			console.log("XGRIDS[i]: " + xGrids[i]);
-			console.log("XGRIDS[j]" + xGrids[j]);
+			// console.log("XGRIDS[i]: " + xGrids[i]);
+			// console.log("XGRIDS[j]" + xGrids[j]);
 		}
 	}
 
@@ -102,8 +100,8 @@ linesRow.addEventListener('click', (e) => {
 
 			console.log("Y1: " + y1);
 			console.log("Y2: " + y2);
-			console.log("YGRIDS[i]: " + yGrids[i]);
-			console.log("YGRIDS[j]" + yGrids[j]);
+			// console.log("YGRIDS[i]: " + yGrids[i]);
+			// console.log("YGRIDS[j]" + yGrids[j]);
 		}
 	}
 
@@ -115,8 +113,8 @@ linesRow.addEventListener('click', (e) => {
 		width: ${width}px; 
 		height: ${height}px; 
 		position: absolute; 
-		top: ${x}px; 
-		left: ${y}px; 
+		top: ${x1}px; 
+		left: ${y1}px; 
 		background: red
 		`
 	);
@@ -124,7 +122,6 @@ linesRow.addEventListener('click', (e) => {
 	linesRow.appendChild(pixel);
 
 	console.log("---------------------------------------------");
-
 	console.log("x: " + x);
 	console.log("y: " + y);
 	console.log("x1: " + x1);

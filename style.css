@@ -7,4 +7,4 @@ body {height: 100%; padding: 0; margin: 0; position: relative; }
 #column {height: 100%; width: 100%; display: flex; justify-content: center; flex-direction: row; justify-content: space-between; align-content: stretch;}
 .column_grid {width: 1px; background-color: #ccc; }
 
-.pixel {width: 10px; height: 10px; border-radius: 50px; position: absolute; background: black;}
+/* .pixel {width: 10px; height: 10px; border-radius: 50px; position: absolute; background: black;} */
