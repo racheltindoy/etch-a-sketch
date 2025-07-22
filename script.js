@@ -105,6 +105,11 @@ linesRow.addEventListener('click', (e) => {
 		}
 	}
 
+	
+	let rColor = generateRGBValue();
+	let gColor = generateRGBValue();
+	let bColor = generateRGBValue();
+
 	let width = x2-x1-1;
 	let height = y2-y1-1;
 
@@ -115,9 +120,11 @@ linesRow.addEventListener('click', (e) => {
 		position: absolute; 
 		top: ${y1}px; 
 		left: ${x1}px; 
-		background: red
+		background-color: rgb(${rColor}, ${gColor}, ${bColor})
 		`
 	);
+
+	// console.log("RGB " + rgb(colorValue, colorValue, colorValue))
 
 	linesRow.appendChild(pixel);
 
@@ -132,6 +139,11 @@ linesRow.addEventListener('click', (e) => {
 	
 });
 
+
+function generateRGBValue() {
+	const randomNumber = Math.floor(Math.random() * 256);
+	return randomNumber;
+}
 
 // linesRow.addEventListener('click', (e) => {
 // 	console.log("X: " + e.clientX);
