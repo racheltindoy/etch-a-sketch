@@ -25,8 +25,11 @@ function createColumns(newVal) {
 	
 	// let lengthToAdd = newVal-val;
 
-	console.log('ONE: ' + val);
-	console.log('FIVE: ' + newVal);
+	console.log('ONE: VAL: ' + val);
+	console.log('FIVE: newVal: ' + newVal);
+
+	console.log(`IS ${newVal} < ${val}?`);
+	console.log(newVal < val ? true : false);
 
 	if(newVal == 16 || !val) { 
 		val = 16;
@@ -39,7 +42,7 @@ function createColumns(newVal) {
 			// console.log('!newVal inner');
 		}
 
-		console.log("TWO: " + val);
+		console.log("TWO: VAL: " + val);
 	}
 
 	if (newVal < val) {
@@ -47,23 +50,30 @@ function createColumns(newVal) {
 		for(let i = 0; i < lengthToRemove; i++ ) {
 			let lastchild = linesColumn.lastElementChild;
 			linesColumn.removeChild(lastchild);
+			console.log("FOUR: i" + i);
 		}
 
 		val = newVal;
+
+		// ------------- TEST ZONE ---------------
 		console.log("FOUR: " + val);
+		console.log('FOUR: lengthToRemove: ' + lengthToRemove);
+		console.log("FOUR: newVal: " + newVal);
+		console.log('FOUR: val: ' + val);
 	}
 
-	console.log("THREE: " + val);
+	// ------------- TEST ZONE ---------------
+	console.log("THREE: VAL: " + val);
 
-	// if (newVal > val) {
-	// 	for (let i = 0; i < lengthToAdd; i++) {
-	// 		const linesColumnGrid = document.createElement('div');
-	// 		linesColumn.appendChild(linesColumnGrid);
-	// 		linesColumnGrid.classList.add('column_grid');
-	// 		val = newVal; 
-	// 		console.log('1st');
-	// 		}
-	// }
+	if (newVal > val) {
+		for (let i = 0; i < lengthToAdd; i++) {
+			const linesColumnGrid = document.createElement('div');
+			linesColumn.appendChild(linesColumnGrid);
+			linesColumnGrid.classList.add('column_grid');
+			val = newVal; 
+			console.log('1st');
+			}
+	}
 
 	
 }
@@ -213,7 +223,7 @@ body.appendChild(buttonY);
 
 buttonY.addEventListener('click', (e) => {
 	
-	let newVal = prompt('Y Grid #: ');
+	let newVal = parseInt(prompt('Y Grid #: '));
 	// createRows(val);
 	// console.log("THE VALUE IS: " + newVal);
 	createColumns(newVal);
