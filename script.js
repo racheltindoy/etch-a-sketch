@@ -10,6 +10,7 @@ body.appendChild(linesColumn);
 
 
 // Create rows
+
 function createRows(val = 16) {
 	
 	for(let i = 0; i < val; i++) {
@@ -19,17 +20,16 @@ function createRows(val = 16) {
 	}
 }
 
-let val;
+
 // Create columns
-function createColumns(newVal) {
-	
-	// let lengthToAdd = newVal-val;
-
-	console.log('ONE: VAL: ' + val);
-	console.log('FIVE: newVal: ' + newVal);
-
-	console.log(`IS ${newVal} < ${val}?`);
-	console.log(newVal < val ? true : false);
+let val;
+function createColumns(newVal, gridDirection) {
+	// ------------- TEST ZONE ---------------
+	// console.log('ONE: VAL: ' + val);
+	// console.log('FIVE: newVal: ' + newVal);
+	// console.log(`IS ${newVal} < ${val}?`);
+	// console.log(newVal < val ? true : false);
+	// END TEST ZONE
 
 	if(newVal == 16 || !val) { 
 		val = 16;
@@ -38,11 +38,11 @@ function createColumns(newVal) {
 			const linesColumnGrid = document.createElement('div');
 			linesColumn.appendChild(linesColumnGrid);
 			linesColumnGrid.classList.add('column_grid');
-			// console.log('1st');
-			// console.log('!newVal inner');
 		}
 
-		console.log("TWO: VAL: " + val);
+		// ------------- TEST ZONE ---------------
+		// console.log("TWO: VAL: " + val);
+		// END TEST ZONE
 	}
 
 	if (newVal < val) {
@@ -56,26 +56,27 @@ function createColumns(newVal) {
 		val = newVal;
 
 		// ------------- TEST ZONE ---------------
-		console.log("FOUR: " + val);
-		console.log('FOUR: lengthToRemove: ' + lengthToRemove);
-		console.log("FOUR: newVal: " + newVal);
-		console.log('FOUR: val: ' + val);
+		// console.log("FOUR: " + val);
+		// console.log('FOUR: lengthToRemove: ' + lengthToRemove);
+		// console.log("FOUR: newVal: " + newVal);
+		// console.log('FOUR: val: ' + val);
+		// END TEST ZONE
 	}
 
 	// ------------- TEST ZONE ---------------
-	console.log("THREE: VAL: " + val);
+	// console.log("THREE: VAL: " + val);
+	// END TEST ZONE
 
 	if (newVal > val) {
+		let lengthToAdd = newVal-val;
 		for (let i = 0; i < lengthToAdd; i++) {
 			const linesColumnGrid = document.createElement('div');
 			linesColumn.appendChild(linesColumnGrid);
 			linesColumnGrid.classList.add('column_grid');
 			val = newVal; 
-			console.log('1st');
 			}
+		val = newVal;
 	}
-
-	
 }
 
 
