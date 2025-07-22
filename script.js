@@ -12,7 +12,7 @@ body.appendChild(linesColumn);
 // Create rows
 
 function createRows(val = 16) {
-
+	
 	for(let i = 0; i < val; i++) {
 		const linesRowGrid = document.createElement('div');
 		linesRow.appendChild(linesRowGrid);
@@ -22,15 +22,36 @@ function createRows(val = 16) {
 
 
 // Create columns
-function createColumns(val = 16) {
+function createColumns(newVal) {
+	let val = 16;
+	let lengthToRemove = val-newVal;
+	let lengthToAdd = newVal-val;
 
-	for(let i = 0; i < val; i++) {
-		const linesColumnGrid = document.createElement('div');
-		linesColumn.appendChild(linesColumnGrid);
-		linesColumnGrid.classList.add('column_grid');
-	}
+	if (newVal < val) {
+		for(let i = 0; i < lengthToRemove; i++ ) {
+			let lastchild = linesColumn.lastElementChild;
+			linesColumn.removeChild(lastchild);
+			console.log("Last child removed successfully");
+			console.log('1st');
+		}
+	} else if(newVal > val) {
+		for (let i = 0; i < lengthToAdd; i++) {
+			const linesColumnGrid = document.createElement('div');
+			linesColumn.appendChild(linesColumnGrid);
+			linesColumnGrid.classList.add('column_grid');
+			console.log('2nd');
+		}
+	} else {
+		for(let i = 0; i < val; i++) {
+			const linesColumnGrid = document.createElement('div');
+			linesColumn.appendChild(linesColumnGrid);
+			linesColumnGrid.classList.add('column_grid');
+			console.log('3rd');
+			}
+		}
+
+	val = newVal;
 }
-
 
 
 function findAllXGridPositions() {
@@ -176,10 +197,13 @@ buttonY.id = 'buttonY';
 body.appendChild(buttonY);
 
 buttonY.addEventListener('click', (e) => {
+	
 	let val = prompt('Y Grid #: ');
+	createRows(val);
+	console.log("THE VALUE IS: " + val);
 	createColumns(val);
 
-	console.log('clicked');
+	// console.log('clicked');
 	e.stopPropagation();
 });
 
