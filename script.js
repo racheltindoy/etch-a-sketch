@@ -1,6 +1,8 @@
 const body = document.querySelector('body');
 const linesRow = document.createElement('div');
 const linesColumn = document.createElement('div');
+
+
 linesRow.setAttribute('id', 'row');
 linesColumn.setAttribute('id', 'column');
 body.appendChild(linesRow);
@@ -8,19 +10,27 @@ body.appendChild(linesColumn);
 
 
 // Create rows
-for(let i = 0; i < 16; i++) {
-	const linesRowGrid = document.createElement('div');
-	linesRow.appendChild(linesRowGrid);
-	linesRowGrid.classList.add('row_grid');
+
+function createRows(val = 16) {
+
+	for(let i = 0; i < val; i++) {
+		const linesRowGrid = document.createElement('div');
+		linesRow.appendChild(linesRowGrid);
+		linesRowGrid.classList.add('row_grid');
+	}
 }
 
 
 // Create columns
-for(let i = 0; i < 16; i++) {
-	const linesColumnGrid = document.createElement('div');
-	linesColumn.appendChild(linesColumnGrid);
-	linesColumnGrid.classList.add('column_grid');
+function createColumns(val = 16) {
+
+	for(let i = 0; i < val; i++) {
+		const linesColumnGrid = document.createElement('div');
+		linesColumn.appendChild(linesColumnGrid);
+		linesColumnGrid.classList.add('column_grid');
+	}
 }
+
 
 
 function findAllXGridPositions() {
@@ -59,7 +69,7 @@ function findAllYGridPositions() {
 }
 
 
-linesRow.addEventListener('click', (e) => {
+body.addEventListener('click', (e) => {
 	let yGrids = findAllXGridPositions();
 	let xGrids = findAllYGridPositions();
 	console.log("X GRIDS: " + xGrids);
@@ -144,6 +154,40 @@ function generateRGBValue() {
 	const randomNumber = Math.floor(Math.random() * 256);
 	return randomNumber;
 }
+
+
+const buttonX = document.createElement('button');
+buttonX.textContent = 'Change Grid X';
+buttonX.id = 'buttonX';
+body.appendChild(buttonX);
+
+
+buttonX.addEventListener('click', (e) => {
+	let val = prompt('X Grid #: ');
+	createRows(val);
+
+	console.log('clicked');
+	e.stopPropagation();
+});
+
+const buttonY = document.createElement('button');
+buttonY.textContent = 'Change Grid Y';
+buttonY.id = 'buttonY';
+body.appendChild(buttonY);
+
+buttonY.addEventListener('click', (e) => {
+	let val = prompt('Y Grid #: ');
+	createColumns(val);
+
+	console.log('clicked');
+	e.stopPropagation();
+});
+
+
+
+createRows();
+createColumns();
+
 
 // linesRow.addEventListener('click', (e) => {
 // 	console.log("X: " + e.clientX);
