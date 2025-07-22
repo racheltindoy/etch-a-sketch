@@ -10,7 +10,6 @@ body.appendChild(linesColumn);
 
 
 // Create rows
-
 function createRows(val = 16) {
 	
 	for(let i = 0; i < val; i++) {
@@ -20,37 +19,53 @@ function createRows(val = 16) {
 	}
 }
 
-
+let val;
 // Create columns
 function createColumns(newVal) {
-	let val = 16;
-	let lengthToRemove = val-newVal;
-	let lengthToAdd = newVal-val;
+	
+	// let lengthToAdd = newVal-val;
 
-	if (newVal < val) {
-		for(let i = 0; i < lengthToRemove; i++ ) {
-			let lastchild = linesColumn.lastElementChild;
-			linesColumn.removeChild(lastchild);
-			console.log("Last child removed successfully");
-			console.log('1st');
-		}
-	} else if(newVal > val) {
-		for (let i = 0; i < lengthToAdd; i++) {
-			const linesColumnGrid = document.createElement('div');
-			linesColumn.appendChild(linesColumnGrid);
-			linesColumnGrid.classList.add('column_grid');
-			console.log('2nd');
-		}
-	} else {
+	console.log('ONE: ' + val);
+	console.log('FIVE: ' + newVal);
+
+	if(newVal == 16 || !val) { 
+		val = 16;
+
 		for(let i = 0; i < val; i++) {
 			const linesColumnGrid = document.createElement('div');
 			linesColumn.appendChild(linesColumnGrid);
 			linesColumnGrid.classList.add('column_grid');
-			console.log('3rd');
-			}
+			// console.log('1st');
+			// console.log('!newVal inner');
 		}
 
-	val = newVal;
+		console.log("TWO: " + val);
+	}
+
+	if (newVal < val) {
+		let lengthToRemove = val-newVal;
+		for(let i = 0; i < lengthToRemove; i++ ) {
+			let lastchild = linesColumn.lastElementChild;
+			linesColumn.removeChild(lastchild);
+		}
+
+		val = newVal;
+		console.log("FOUR: " + val);
+	}
+
+	console.log("THREE: " + val);
+
+	// if (newVal > val) {
+	// 	for (let i = 0; i < lengthToAdd; i++) {
+	// 		const linesColumnGrid = document.createElement('div');
+	// 		linesColumn.appendChild(linesColumnGrid);
+	// 		linesColumnGrid.classList.add('column_grid');
+	// 		val = newVal; 
+	// 		console.log('1st');
+	// 		}
+	// }
+
+	
 }
 
 
@@ -198,20 +213,16 @@ body.appendChild(buttonY);
 
 buttonY.addEventListener('click', (e) => {
 	
-	let val = prompt('Y Grid #: ');
-	createRows(val);
-	console.log("THE VALUE IS: " + val);
-	createColumns(val);
+	let newVal = prompt('Y Grid #: ');
+	// createRows(val);
+	// console.log("THE VALUE IS: " + newVal);
+	createColumns(newVal);
 
 	// console.log('clicked');
 	e.stopPropagation();
 });
 
-
-
-createRows();
 createColumns();
-
 
 // linesRow.addEventListener('click', (e) => {
 // 	console.log("X: " + e.clientX);
