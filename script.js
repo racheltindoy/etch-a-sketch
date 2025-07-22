@@ -113,8 +113,8 @@ body.addEventListener('click', (e) => {
 		width: ${width}px; 
 		height: ${height}px; 
 		position: absolute; 
-		top: ${x1}px; 
-		left: ${y1}px; 
+		top: ${y1}px; 
+		left: ${x1}px; 
 		background: red
 		`
 	);
