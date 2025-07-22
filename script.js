@@ -59,9 +59,9 @@ function findAllYGridPositions() {
 }
 
 
-body.addEventListener('click', (e) => {
-	let xGrids = findAllXGridPositions();
-	let yGrids = findAllYGridPositions();
+linesRow.addEventListener('click', (e) => {
+	let yGrids = findAllXGridPositions();
+	let xGrids = findAllYGridPositions();
 	console.log("X GRIDS: " + xGrids);
 	console.log("Y GRIDS: " + yGrids);
 
@@ -105,8 +105,8 @@ body.addEventListener('click', (e) => {
 		}
 	}
 
-	let width = y2-y1;
-	let height = x2-x1;
+	let width = x2-x1-1;
+	let height = y2-y1-1;
 
 	pixel.setAttribute('style', 
 		`
