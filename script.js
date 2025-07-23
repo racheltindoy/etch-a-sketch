@@ -269,31 +269,23 @@ function createYGridButton() {
 }
 
 
-// let isDrawing = false;
-// body.addEventListener('mousedown', (e) => {
-// 	isDrawing =  true;
-// 	if(isDrawing) {
-// 		fillGridBox(e); 
-// 		body.addEventListener('mouseup', () => {
-// 			isDrawing = false;
-// 		})
-// 	}
-	
-// });
+let isDrawing = false;
+body.addEventListener('mousedown', () => {
+	isDrawing = true;
+	e.preventDefault();
+});
+
+body.addEventListener('mouseup', () => {
+	isDrawing = false;
+});
+
+body.addEventListener('mouseover', (e) => {
+	if(isDrawing) { fillGridBox(e); }
+	e.preventDefault();
+});
 
 
-// let isDrawing = false;
-// console.log(isDrawing);
-// body.addEventListener('mousedown', () => {
-// 	isDrawing = true;
-// 	body.addEventListener('mousemove', fillGridBox);
 
-	
-	
-// });
-
-
-body.addEventListener('click', fillGridBox);
 createXGridButton();
 createYGridButton();
 createGrids();
