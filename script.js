@@ -198,11 +198,8 @@ function fillGridBox(e) {
 	let bColor = generateRGBValue();
 	let width = x2-x1-1;
 	let height = y2-y1-1;
-	
 	let isColored = colored;
-	console.log(isColored);
 
-	
 	if(isColored) {
 		rColor = generateRGBValue();
 		gColor = generateRGBValue();
@@ -296,20 +293,22 @@ function createYGridButton() {
 }
 
 
-
 let colored;
 if(!colored) {colored = false; }
-function toggleRandomColors() {
+
+function createRandomColorsButton() {
 	const buttonColor = document.createElement('button');
 	const colorOnOrOff = colored === false ? 'off' : 'on';
 	buttonColor.textContent = `Random color: ` + colorOnOrOff;
-	
 	buttonColor.id = 'buttonColor';
 	body.appendChild(buttonColor);
-	
+}
+
+function toggleRandomColors() {
+	const buttonColor = document.querySelector('#buttonColor');	
 
 	buttonColor.addEventListener('click', (e) => {
-
+		e.stopPropagation();
 		if(colored === false) {
 			colored = true;
 			buttonColor.textContent = `Random color: ` + 'on';
@@ -323,10 +322,6 @@ function toggleRandomColors() {
 		}
 	});
 }
-
-toggleRandomColors();
-console.log(colored);
-
 
 
 let isDrawing = false;
@@ -350,7 +345,13 @@ body.addEventListener('mouseover', (e) => {
 	e.preventDefault();
 });
 
+body.addEventListener('drag', (e) => {
+	if(isDrawing) { fillGridBox(e); }
+	e.preventDefault();
+});
 
+createRandomColorsButton();
+toggleRandomColors();
 createXGridButton();
 createYGridButton();
 createGrids();
