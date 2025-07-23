@@ -340,15 +340,15 @@ body.addEventListener('mouseleave', (e) => {
 	e.preventDefault();
 });
 
-body.addEventListener('mouseover', (e) => {
+body.addEventListener('mousemove', (e) => {
 	if(isDrawing) { fillGridBox(e); }
 	e.preventDefault();
 });
 
-body.addEventListener('drag', (e) => {
-	if(isDrawing) { fillGridBox(e); }
-	e.preventDefault();
-});
+// body.addEventListener('drag', (e) => {
+// 	if(isDrawing) { fillGridBox(e); }
+// 	e.preventDefault();
+// });
 
 createRandomColorsButton();
 toggleRandomColors();
