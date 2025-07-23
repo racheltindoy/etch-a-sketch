@@ -26,33 +26,42 @@ let valY;
 let val1;
 let val2;
 function createColumns(newVal, gridType) {
-	// ------------- TEST ZONE ---------------
-	// console.log('ONE: VAL: ' + val);
-	// console.log('FIVE: newVal: ' + newVal);
-	// console.log(`IS ${newVal} < ${val}?`);
-	// console.log(newVal < val ? true : false);
-	// END TEST ZONE
-	
+
 	if(!valY || !valX) { 
 		initializeGrid();
 	}
 
 	removeGrid(newVal, gridType);
 
-	// ------------- TEST ZONE ---------------
-	// console.log("THREE: VAL: " + val);
-	// END TEST ZONE
+	addGrid(newVal, gridType);
 
-	// if (newVal > val) {
-	// 	let lengthToAdd = newVal-val;
-	// 	for (let i = 0; i < lengthToAdd; i++) {
-	// 		const linesColumnGrid = document.createElement('div');
-	// 		linesColumn.appendChild(linesColumnGrid);
-	// 		linesColumnGrid.classList.add('column_grid');
-	// 		val = newVal; 
-	// 		}
-	// 	val = newVal;
-	// }
+}
+
+
+function addGrid(newVal, gridType) {
+	if(gridType === 'y') {
+		if (newVal > valY) {
+			let lengthToAdd = newVal-valY;
+
+			for (let i = 0; i < lengthToAdd; i++) {
+				const linesColumnGrid = document.createElement('div');
+				linesColumn.appendChild(linesColumnGrid);
+				linesColumnGrid.classList.add('column_grid');
+				}
+
+			valY = newVal;
+		}
+	} else if(gridType === 'x') {
+		let lengthToAdd = newVal-valX;
+
+		for (let i = 0; i < lengthToAdd; i++) {
+			const linesRowGrid = document.createElement('div');
+			linesRow.appendChild(linesRowGrid);
+			linesRowGrid.classList.add('row_grid');
+		}
+
+		valX = newVal;
+	}
 }
 
 
@@ -86,13 +95,6 @@ function removeGrid(newVal, gridType) {
 			}
 
 			valY = newVal;
-
-			// ------------- TEST ZONE ---------------
-			// console.log("FOUR: " + val);
-			// console.log('FOUR: lengthToRemove: ' + lengthToRemove);
-			// console.log("FOUR: newVal: " + newVal);
-			// console.log('FOUR: val: ' + val);
-			// END TEST ZONE
 		}
 	} else if (gridType == 'x') {
 		if (newVal < valX) {
