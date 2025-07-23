@@ -12,7 +12,6 @@ body.appendChild(linesColumn);
 // Create rows
 
 function createRows(val = 16) {
-	
 	for(let i = 0; i < val; i++) {
 		const linesRowGrid = document.createElement('div');
 		linesRow.appendChild(linesRowGrid);
@@ -23,27 +22,15 @@ function createRows(val = 16) {
 
 // Create columns
 let val;
-function createColumns(newVal, gridDirection) {
+function createColumns(newVal, gridType) {
 	// ------------- TEST ZONE ---------------
 	// console.log('ONE: VAL: ' + val);
 	// console.log('FIVE: newVal: ' + newVal);
 	// console.log(`IS ${newVal} < ${val}?`);
 	// console.log(newVal < val ? true : false);
 	// END TEST ZONE
-
-	if(newVal == 16 || !val) { 
-		val = 16;
-
-		for(let i = 0; i < val; i++) {
-			const linesColumnGrid = document.createElement('div');
-			linesColumn.appendChild(linesColumnGrid);
-			linesColumnGrid.classList.add('column_grid');
-		}
-
-		// ------------- TEST ZONE ---------------
-		// console.log("TWO: VAL: " + val);
-		// END TEST ZONE
-	}
+	
+	initializeGrid();
 
 	if (newVal < val) {
 		let lengthToRemove = val-newVal;
@@ -77,6 +64,36 @@ function createColumns(newVal, gridDirection) {
 			}
 		val = newVal;
 	}
+}
+
+
+let valX;
+let valY;
+function initializeGrid() {
+
+	if(!valY || !valX) { 
+		for(let i = 0; i < 16; i++) {
+			const linesColumnGrid = document.createElement('div');
+			linesColumn.appendChild(linesColumnGrid);
+			linesColumnGrid.classList.add('column_grid');
+
+			const linesRowGrid = document.createElement('div');
+			linesRow.appendChild(linesRowGrid);
+			linesRowGrid.classList.add('row_grid');
+		}
+
+		// ------------- TEST ZONE ---------------
+		// console.log("TWO: VAL: " + val);
+		// END TEST ZONE
+
+		valY = 16;
+		valX = 16;
+		val = 16;
+	}
+}
+
+function addGrid(newVal, gridType) {
+	
 }
 
 
