@@ -9,23 +9,15 @@ body.appendChild(linesRow);
 body.appendChild(linesColumn);
 
 
-// Create rows
-
-function createRows(val = 16) {
-	for(let i = 0; i < val; i++) {
-		const linesRowGrid = document.createElement('div');
-		linesRow.appendChild(linesRowGrid);
-		linesRowGrid.classList.add('row_grid');
-	}
+function generateRGBValue() {
+	const randomNumber = Math.floor(Math.random() * 256);
+	return randomNumber;
 }
 
-
-// Create columns
+// Create grids
 let valX;
 let valY;
-let val1;
-let val2;
-function createColumns(newVal, gridType) {
+function createGrids(newVal, gridType) {
 
 	if(!valY || !valX) { 
 		initializeGrid();
@@ -35,6 +27,26 @@ function createColumns(newVal, gridType) {
 
 	addGrid(newVal, gridType);
 
+}
+
+
+function initializeGrid() {
+	for(let i = 0; i < 16; i++) {
+		const linesColumnGrid = document.createElement('div');
+		linesColumn.appendChild(linesColumnGrid);
+		linesColumnGrid.classList.add('column_grid');
+
+		const linesRowGrid = document.createElement('div');
+		linesRow.appendChild(linesRowGrid);
+		linesRowGrid.classList.add('row_grid');
+	}
+
+	// ------------- TEST ZONE ---------------
+	// console.log("TWO: VAL: " + val);
+	// END TEST ZONE
+
+	valY = 16;
+	valX = 16;
 }
 
 
@@ -64,26 +76,6 @@ function addGrid(newVal, gridType) {
 	}
 }
 
-
-
-function initializeGrid() {
-	for(let i = 0; i < 16; i++) {
-		const linesColumnGrid = document.createElement('div');
-		linesColumn.appendChild(linesColumnGrid);
-		linesColumnGrid.classList.add('column_grid');
-
-		const linesRowGrid = document.createElement('div');
-		linesRow.appendChild(linesRowGrid);
-		linesRowGrid.classList.add('row_grid');
-	}
-
-	// ------------- TEST ZONE ---------------
-	// console.log("TWO: VAL: " + val);
-	// END TEST ZONE
-
-	valY = 16;
-	valX = 16;
-}
 
 function removeGrid(newVal, gridType) {
 	if(gridType === 'y') {
@@ -148,7 +140,7 @@ function findAllYGridPositions() {
 }
 
 
-body.addEventListener('click', (e) => {
+function fillGridBox(e) {
 	let yGrids = findAllXGridPositions();
 	let xGrids = findAllYGridPositions();
 	console.log("X GRIDS: " + xGrids);
@@ -174,8 +166,11 @@ body.addEventListener('click', (e) => {
 			x2 = xGrids[j];
 			console.log("X1: " + x1);
 			console.log("X2: " + x2);
+
+			// ---------------------- TEST ZONE -----------------------------
 			// console.log("XGRIDS[i]: " + xGrids[i]);
 			// console.log("XGRIDS[j]" + xGrids[j]);
+			// ---------------------- END TEST ZONE -----------------------------
 		}
 	}
 
@@ -186,14 +181,15 @@ body.addEventListener('click', (e) => {
 		if(y >= yGrids[i] && y < yGrids[j]) {
 			y1 = yGrids[i];
 			y2 = yGrids[j];
-
-			console.log("Y1: " + y1);
-			console.log("Y2: " + y2);
+			
+			// ---------------------- TEST ZONE -----------------------------
+			// console.log("Y1: " + y1);
+			// console.log("Y2: " + y2);
 			// console.log("YGRIDS[i]: " + yGrids[i]);
 			// console.log("YGRIDS[j]" + yGrids[j]);
+			// ---------------------- END TEST ZONE -----------------------------
 		}
 	}
-
 	
 	let rColor = generateRGBValue();
 	let gColor = generateRGBValue();
@@ -213,59 +209,53 @@ body.addEventListener('click', (e) => {
 		`
 	);
 
-	// console.log("RGB " + rgb(colorValue, colorValue, colorValue))
-
 	linesRow.appendChild(pixel);
 
-	console.log("---------------------------------------------");
-	console.log("x: " + x);
-	console.log("y: " + y);
-	console.log("x1: " + x1);
-	console.log("x2: " + x2);
-	console.log("y1: " + y1);
-	console.log("y2: " + y2);
-	console.log("---------------------------------------------");
-	
-});
-
-
-function generateRGBValue() {
-	const randomNumber = Math.floor(Math.random() * 256);
-	return randomNumber;
+	// ---------------------- TEST ZONE -----------------------------
+	// console.log("---------------------------------------------");
+	// console.log("x: " + x);
+	// console.log("y: " + y);
+	// console.log("x1: " + x1);
+	// console.log("x2: " + x2);
+	// console.log("y1: " + y1);
+	// console.log("y2: " + y2);
+	// console.log("---------------------------------------------");
+	// ---------------------- END TEST ZONE -----------------------------
 }
 
 
-const buttonX = document.createElement('button');
-buttonX.textContent = 'Change Grid X';
-buttonX.id = 'buttonX';
-body.appendChild(buttonX);
+function createXGridButton() {
+	const buttonX = document.createElement('button');
+	buttonX.textContent = 'Change Grid X';
+	buttonX.id = 'buttonX';
+	body.appendChild(buttonX);
 
-buttonX.addEventListener('click', (e) => {
-	let newVal = parseInt(prompt('X Grid #: '));
-	createColumns(newVal, 'x');
-	e.stopPropagation();
-});
-
-const buttonY = document.createElement('button');
-buttonY.textContent = 'Change Grid Y';
-buttonY.id = 'buttonY';
-body.appendChild(buttonY);
-
-buttonY.addEventListener('click', (e) => {
-	let newVal = parseInt(prompt('Y Grid #`: '));
-	createColumns(newVal, 'y');
-	e.stopPropagation();
-});
+	buttonX.addEventListener('click', (e) => {
+		let newVal = parseInt(prompt('X Grid #: '));
+		createGrids(newVal, 'x');
+		e.stopPropagation();
+	});
+}
 
 
-// function checkGridType(buttonID) {
-// 	let gridType;
-// 	buttonID == 'buttonY' ?  gridType = 'y' : gridType = 'x';
+function createYGridButton() {
+	const buttonY = document.createElement('button');
+	buttonY.textContent = 'Change Grid Y';
+	buttonY.id = 'buttonY';
+	body.appendChild(buttonY);
 
-// 	return gridType;
-// }
+	buttonY.addEventListener('click', (e) => {
+		let newVal = parseInt(prompt('Y Grid #`: '));
+		createGrids(newVal, 'y');
+		e.stopPropagation();
+	});
+}
 
-createColumns();
+
+body.addEventListener('click', fillGridBox);
+createXGridButton();
+createYGridButton();
+createGrids();
 
 // linesRow.addEventListener('click', (e) => {
 // 	console.log("X: " + e.clientX);
