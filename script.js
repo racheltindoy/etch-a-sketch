@@ -13,6 +13,18 @@ function generateRGBValue() {
 	return randomNumber;
 }
 
+
+function checkDuplicateGridBox(top, left) {
+	const exists = gridsUsed.some((grid) => grid.top === top && grid.left === left);
+	if(exists) {
+		return true;
+		
+	} else {
+		return false;
+	}
+}
+
+
 // Create grids
 let valX;
 let valY;
@@ -218,16 +230,6 @@ function fillGridBox(e) {
 	// ---------------------- END TEST ZONE -----------------------------
 }
 
-function checkDuplicateGridBox(top, left) {
-	const exists = gridsUsed.some((grid) => grid.top === top && grid.left === left);
-	if(exists) {
-		return true;
-		
-	} else {
-		return false;
-	}
-}
-
 
 function createXGridButton() {
 	const buttonX = document.createElement('button');
@@ -236,12 +238,12 @@ function createXGridButton() {
 	body.appendChild(buttonX);
 
 	buttonX.addEventListener('click', (e) => {
-		let newVal = parseInt(prompt('X Grid #`: '));
+		let newVal = parseInt(prompt('X Grid #: '));
 		if(newVal < 100) {
 			createGrids(newVal, 'x');
 			e.stopPropagation();
 		} else {
-			return alert('X Grid # must be less than 100: ');
+			return alert('Enter the number of lines for the X grid: ');
 		}
 		
 	});
@@ -260,14 +262,11 @@ function createYGridButton() {
 			createGrids(newVal, 'y');
 			e.stopPropagation();
 		} else {
-			return alert('Y Grid # must be less than 100: ');
+			return alert('Enter the number of lines for the Y grid: ');
 		}
 		
 	});
 }
-
-
-
 
 
 // let isDrawing = false;
