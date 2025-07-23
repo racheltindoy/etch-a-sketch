@@ -21,7 +21,10 @@ function createRows(val = 16) {
 
 
 // Create columns
-let val;
+let valX;
+let valY;
+let val1;
+let val2;
 function createColumns(newVal, gridType) {
 	// ------------- TEST ZONE ---------------
 	// console.log('ONE: VAL: ' + val);
@@ -30,69 +33,79 @@ function createColumns(newVal, gridType) {
 	// console.log(newVal < val ? true : false);
 	// END TEST ZONE
 	
-	initializeGrid();
-
-	if (newVal < val) {
-		let lengthToRemove = val-newVal;
-		for(let i = 0; i < lengthToRemove; i++ ) {
-			let lastchild = linesColumn.lastElementChild;
-			linesColumn.removeChild(lastchild);
-			console.log("FOUR: i" + i);
-		}
-
-		val = newVal;
-
-		// ------------- TEST ZONE ---------------
-		// console.log("FOUR: " + val);
-		// console.log('FOUR: lengthToRemove: ' + lengthToRemove);
-		// console.log("FOUR: newVal: " + newVal);
-		// console.log('FOUR: val: ' + val);
-		// END TEST ZONE
+	if(!valY || !valX) { 
+		initializeGrid();
 	}
+
+	removeGrid(newVal, gridType);
 
 	// ------------- TEST ZONE ---------------
 	// console.log("THREE: VAL: " + val);
 	// END TEST ZONE
 
-	if (newVal > val) {
-		let lengthToAdd = newVal-val;
-		for (let i = 0; i < lengthToAdd; i++) {
-			const linesColumnGrid = document.createElement('div');
-			linesColumn.appendChild(linesColumnGrid);
-			linesColumnGrid.classList.add('column_grid');
-			val = newVal; 
-			}
-		val = newVal;
-	}
+	// if (newVal > val) {
+	// 	let lengthToAdd = newVal-val;
+	// 	for (let i = 0; i < lengthToAdd; i++) {
+	// 		const linesColumnGrid = document.createElement('div');
+	// 		linesColumn.appendChild(linesColumnGrid);
+	// 		linesColumnGrid.classList.add('column_grid');
+	// 		val = newVal; 
+	// 		}
+	// 	val = newVal;
+	// }
 }
 
 
-let valX;
-let valY;
+
 function initializeGrid() {
+	for(let i = 0; i < 16; i++) {
+		const linesColumnGrid = document.createElement('div');
+		linesColumn.appendChild(linesColumnGrid);
+		linesColumnGrid.classList.add('column_grid');
 
-	if(!valY || !valX) { 
-		for(let i = 0; i < 16; i++) {
-			const linesColumnGrid = document.createElement('div');
-			linesColumn.appendChild(linesColumnGrid);
-			linesColumnGrid.classList.add('column_grid');
-
-			const linesRowGrid = document.createElement('div');
-			linesRow.appendChild(linesRowGrid);
-			linesRowGrid.classList.add('row_grid');
-		}
-
-		// ------------- TEST ZONE ---------------
-		// console.log("TWO: VAL: " + val);
-		// END TEST ZONE
-
-		valY = 16;
-		valX = 16;
-		val = 16;
+		const linesRowGrid = document.createElement('div');
+		linesRow.appendChild(linesRowGrid);
+		linesRowGrid.classList.add('row_grid');
 	}
+
+	// ------------- TEST ZONE ---------------
+	// console.log("TWO: VAL: " + val);
+	// END TEST ZONE
+
+	valY = 16;
+	valX = 16;
 }
 
-function addGrid(newVal, gridType) {
+function removeGrid(newVal, gridType) {
+	if(gridType === 'y') {
+		if (newVal < valY) {
+			let lengthToRemove = valY-newVal;
+			for(let i = 0; i < lengthToRemove; i++ ) {
+				let lastchild = linesColumn.lastElementChild;
+				linesColumn.removeChild(lastchild);
+			}
+
+			valY = newVal;
+
+			// ------------- TEST ZONE ---------------
+			// console.log("FOUR: " + val);
+			// console.log('FOUR: lengthToRemove: ' + lengthToRemove);
+			// console.log("FOUR: newVal: " + newVal);
+			// console.log('FOUR: val: ' + val);
+			// END TEST ZONE
+		}
+	} else if (gridType == 'x') {
+		if (newVal < valX) {
+			let lengthToRemove = valX-newVal;
+
+			for(let i = 0; i < lengthToRemove; i++ ) {
+				let lastchild = linesRow.lastElementChild;
+				linesRow.removeChild(lastchild);
+			}
+
+			valX = newVal;
+		}
+	}
 	
 }
 
@@ -225,12 +238,9 @@ buttonX.textContent = 'Change Grid X';
 buttonX.id = 'buttonX';
 body.appendChild(buttonX);
 
-
 buttonX.addEventListener('click', (e) => {
-	let val = prompt('X Grid #: ');
-	createRows(val);
-
-	console.log('clicked');
+	let newVal = parseInt(prompt('X Grid #: '));
+	createColumns(newVal, 'x');
 	e.stopPropagation();
 });
 
@@ -240,15 +250,18 @@ buttonY.id = 'buttonY';
 body.appendChild(buttonY);
 
 buttonY.addEventListener('click', (e) => {
-	
-	let newVal = parseInt(prompt('Y Grid #: '));
-	// createRows(val);
-	// console.log("THE VALUE IS: " + newVal);
-	createColumns(newVal);
-
-	// console.log('clicked');
+	let newVal = parseInt(prompt('Y Grid #`: '));
+	createColumns(newVal, 'y');
 	e.stopPropagation();
 });
+
+
+// function checkGridType(buttonID) {
+// 	let gridType;
+// 	buttonID == 'buttonY' ?  gridType = 'y' : gridType = 'x';
+
+// 	return gridType;
+// }
 
 createColumns();
 
