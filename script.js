@@ -2,7 +2,6 @@ const body = document.querySelector('body');
 const linesRow = document.createElement('div');
 const linesColumn = document.createElement('div');
 
-
 linesRow.setAttribute('id', 'row');
 linesColumn.setAttribute('id', 'column');
 body.appendChild(linesRow);
@@ -18,15 +17,12 @@ function generateRGBValue() {
 let valX;
 let valY;
 function createGrids(newVal, gridType) {
-
 	if(!valY || !valX) { 
 		initializeGrid();
 	}
 
 	removeGrid(newVal, gridType);
-
 	addGrid(newVal, gridType);
-
 }
 
 
@@ -40,10 +36,6 @@ function initializeGrid() {
 		linesRow.appendChild(linesRowGrid);
 		linesRowGrid.classList.add('row_grid');
 	}
-
-	// ------------- TEST ZONE ---------------
-	// console.log("TWO: VAL: " + val);
-	// END TEST ZONE
 
 	valY = 16;
 	valX = 16;
@@ -85,29 +77,24 @@ function removeGrid(newVal, gridType) {
 				let lastchild = linesColumn.lastElementChild;
 				linesColumn.removeChild(lastchild);
 			}
-
 			valY = newVal;
 		}
 	} else if (gridType == 'x') {
 		if (newVal < valX) {
 			let lengthToRemove = valX-newVal;
-
 			for(let i = 0; i < lengthToRemove; i++ ) {
 				let lastchild = linesRow.lastElementChild;
 				linesRow.removeChild(lastchild);
 			}
-
 			valX = newVal;
 		}
 	}
-	
 }
 
 
 function findAllXGridPositions() {
 	let xGrids = document.querySelectorAll('.row_grid');
 	let xGridsNum = xGrids.length;
-
 	let xBottomArray = [];
 
 	for(let i = 0; i<xGridsNum; i++) {
@@ -139,13 +126,10 @@ function findAllYGridPositions() {
 	return yRightArray;
 }
 
-
+let gridsUsed = [];
 function fillGridBox(e) {
 	let yGrids = findAllXGridPositions();
 	let xGrids = findAllYGridPositions();
-	console.log("X GRIDS: " + xGrids);
-	console.log("Y GRIDS: " + yGrids);
-
 	const x = e.clientX;
 	const y = e.clientY;
 	const xGridsLength = xGrids.length;
@@ -154,20 +138,25 @@ function fillGridBox(e) {
 	let x2;
 	let y1;
 	let y2;
-	
 	let pixel = document.createElement('div');
+
+	// ---------------------- TEST ZONE -----------------------------
+	// console.log("X GRIDS: " + xGrids);
+	// console.log("Y GRIDS: " + yGrids);
+	// ---------------------- END TEST ZONE -----------------------------
 
 	for(let i = 0; i <= xGridsLength; i++) {
 		let j;
+
 		if(i !== xGridsLength) { j = i+1; } else { j = i; }
 
 		if(x >= xGrids[i] && x < xGrids[j]) {
 			x1 = xGrids[i];
 			x2 = xGrids[j];
-			console.log("X1: " + x1);
-			console.log("X2: " + x2);
 
 			// ---------------------- TEST ZONE -----------------------------
+			// console.log("X1: " + x1);
+			// console.log("X2: " + x2);
 			// console.log("XGRIDS[i]: " + xGrids[i]);
 			// console.log("XGRIDS[j]" + xGrids[j]);
 			// ---------------------- END TEST ZONE -----------------------------
@@ -176,6 +165,7 @@ function fillGridBox(e) {
 
 	for(let i = 0; i <= yGridsLength; i++) {
 		let j;
+
 		if(i !== yGridsLength) { j = i+1; } else { j = i; }
 
 		if(y >= yGrids[i] && y < yGrids[j]) {
@@ -194,7 +184,6 @@ function fillGridBox(e) {
 	let rColor = generateRGBValue();
 	let gColor = generateRGBValue();
 	let bColor = generateRGBValue();
-
 	let width = x2-x1-1;
 	let height = y2-y1-1;
 
@@ -209,7 +198,13 @@ function fillGridBox(e) {
 		`
 	);
 
-	linesRow.appendChild(pixel);
+	let isDuplicate = checkDuplicateGridBox(y1, x1);
+
+	if (!isDuplicate) {
+		gridsUsed.push({top: y1, left: x1}); 
+		linesRow.appendChild(pixel);
+	} 
+	
 
 	// ---------------------- TEST ZONE -----------------------------
 	// console.log("---------------------------------------------");
@@ -223,6 +218,16 @@ function fillGridBox(e) {
 	// ---------------------- END TEST ZONE -----------------------------
 }
 
+function checkDuplicateGridBox(top, left) {
+	const exists = gridsUsed.some((grid) => grid.top === top && grid.left === left);
+	if(exists) {
+		return true;
+		
+	} else {
+		return false;
+	}
+}
+
 
 function createXGridButton() {
 	const buttonX = document.createElement('button');
@@ -231,9 +236,14 @@ function createXGridButton() {
 	body.appendChild(buttonX);
 
 	buttonX.addEventListener('click', (e) => {
-		let newVal = parseInt(prompt('X Grid #: '));
-		createGrids(newVal, 'x');
-		e.stopPropagation();
+		let newVal = parseInt(prompt('X Grid #`: '));
+		if(newVal < 100) {
+			createGrids(newVal, 'x');
+			e.stopPropagation();
+		} else {
+			return alert('X Grid # must be less than 100: ');
+		}
+		
 	});
 }
 
@@ -246,48 +256,48 @@ function createYGridButton() {
 
 	buttonY.addEventListener('click', (e) => {
 		let newVal = parseInt(prompt('Y Grid #`: '));
-		createGrids(newVal, 'y');
-		e.stopPropagation();
+		if(newVal < 100) {
+			createGrids(newVal, 'y');
+			e.stopPropagation();
+		} else {
+			return alert('Y Grid # must be less than 100: ');
+		}
+		
 	});
 }
+
+
+
+
+
+// let isDrawing = false;
+// body.addEventListener('mousedown', (e) => {
+// 	isDrawing =  true;
+// 	if(isDrawing) {
+// 		fillGridBox(e); 
+// 		body.addEventListener('mouseup', () => {
+// 			isDrawing = false;
+// 		})
+// 	}
+	
+// });
+
+
+// let isDrawing = false;
+// console.log(isDrawing);
+// body.addEventListener('mousedown', () => {
+// 	isDrawing = true;
+// 	body.addEventListener('mousemove', fillGridBox);
+
+	
+	
+// });
 
 
 body.addEventListener('click', fillGridBox);
 createXGridButton();
 createYGridButton();
 createGrids();
-
-// linesRow.addEventListener('click', (e) => {
-// 	console.log("X: " + e.clientX);
-// 	console.log("Y: " + e.clientY);
-// 	const pixel = document.createElement('div');
-// 	linesRow.appendChild(pixel);
-// 	pixel.classList.add('pixel');
-// 	pixel.setAttribute('style', `left: ${e.clientX}px; top: ${e.clientY}px`);
-// });
-
-
-// let x_grid = document.querySelectorAll('.row_grid');
-// 	const x = x_grid[0].getBoundingClientRect();
-// 	const xTop = x.bottom;
-// 	// console.log(xTop);
-
-// 	let x2_grid = document.querySelectorAll('.row_grid');
-// 	const x2 = x_grid[1].getBoundingClientRect();
-// 	const x2Top = x2.top;
-// console.log(x2Top);
-
-
-// let y_grid = document.querySelectorAll('.column_grid');
-// const y = y_grid[0].getBoundingClientRect();
-// const yTop = y.right;
-// console.log(yTop);
-
-// let y2_grid = document.querySelectorAll('.column_grid');
-// const y2 = y_grid[1].getBoundingClientRect();
-// const y2Top = y2.left;
-// console.log(y2Top);
-
 
 
 // draw on mousemove
