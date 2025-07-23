@@ -198,6 +198,21 @@ function fillGridBox(e) {
 	let bColor = generateRGBValue();
 	let width = x2-x1-1;
 	let height = y2-y1-1;
+	
+	let isColored = colored;
+	console.log(isColored);
+
+	
+	if(isColored) {
+		rColor = generateRGBValue();
+		gColor = generateRGBValue();
+		bColor = generateRGBValue();
+	} else {
+		rColor = 80;
+		gColor = 80;
+		bColor = 80;
+	}
+
 
 	pixel.setAttribute('style', 
 		`
@@ -209,6 +224,18 @@ function fillGridBox(e) {
 		background-color: rgb(${rColor}, ${gColor}, ${bColor})
 		`
 	);
+
+	pixel.setAttribute('style', 
+		`
+		width: ${width}px; 
+		height: ${height}px; 
+		position: absolute; 
+		top: ${y1}px; 
+		left: ${x1}px; 
+		background-color: rgb(${rColor}, ${gColor}, ${bColor})
+		`
+	);
+
 
 	let isDuplicate = checkDuplicateGridBox(y1, x1);
 
@@ -269,21 +296,59 @@ function createYGridButton() {
 }
 
 
+
+let colored;
+if(!colored) {colored = false; }
+function toggleRandomColors() {
+	const buttonColor = document.createElement('button');
+	const colorOnOrOff = colored === false ? 'off' : 'on';
+	buttonColor.textContent = `Random color: ` + colorOnOrOff;
+	
+	buttonColor.id = 'buttonColor';
+	body.appendChild(buttonColor);
+	
+
+	buttonColor.addEventListener('click', (e) => {
+
+		if(colored === false) {
+			colored = true;
+			buttonColor.textContent = `Random color: ` + 'on';
+			console.log(colored);
+			return colored;
+		} else {
+			colored = false;
+			buttonColor.textContent = `Random color: ` + 'off';
+			console.log(colored);
+			return false;
+		}
+	});
+}
+
+toggleRandomColors();
+console.log(colored);
+
+
+
 let isDrawing = false;
-body.addEventListener('mousedown', () => {
+body.addEventListener('mousedown', (e) => {
 	isDrawing = true;
 	e.preventDefault();
 });
 
-body.addEventListener('mouseup', () => {
+body.addEventListener('mouseup', (e) => {
 	isDrawing = false;
+	e.preventDefault();
+});
+
+body.addEventListener('mouseleave', (e) => {
+	isDrawing = false;
+	e.preventDefault();
 });
 
 body.addEventListener('mouseover', (e) => {
 	if(isDrawing) { fillGridBox(e); }
 	e.preventDefault();
 });
-
 
 
 createXGridButton();
