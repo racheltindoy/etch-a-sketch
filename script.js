@@ -189,9 +189,9 @@ function fillGridBox(e) {
 		}
 	}
 	
-	let rColor = generateRGBValue();
-	let gColor = generateRGBValue();
-	let bColor = generateRGBValue();
+	let rColor;
+	let gColor;
+	let bColor;
 	let width = x2-x1-1;
 	let height = y2-y1-1;
 	let isColored = colored;
@@ -352,7 +352,6 @@ createRandomColorsButton();
 toggleRandomColors();
 changeXGridButton();
 createYGridButton();
-createGrids();
 
 
 // draw on mousemove
