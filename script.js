@@ -300,6 +300,20 @@ function createYGridButton() {
 }
 
 
+function clearButton() {
+	const clearButton = document.createElement('button');
+	clearButton.textContent = 'Clear';
+	clearButton.id = 'clear';
+	body.appendChild(clearButton);
+
+	clearButton.addEventListener('click', (e) => {
+		clearGrid();
+		e.stopPropagation;
+	});
+
+}
+
+
 let colored = false;
 
 function createRandomColorsButton() {
@@ -365,6 +379,7 @@ createRandomColorsButton();
 toggleRandomColors();
 changeXGridButton();
 createYGridButton();
+clearButton();
 
 
 // draw on mousemove
