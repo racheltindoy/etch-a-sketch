@@ -407,11 +407,6 @@ body.addEventListener('click', (e) => {
 	e.preventDefault();
 });
 
-// body.addEventListener('drag', (e) => {
-// 	if(isDrawing) { fillGridBox(e); }
-// 	e.preventDefault();
-// });
-
 createRandomColorsButton();
 toggleRandomColors();
 changeXGridButton();
