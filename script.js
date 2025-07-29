@@ -295,8 +295,8 @@ let colored = false;
 
 function createRandomColorsButton() {
 	const buttonColor = document.createElement('button');
-	const colorModeOn = colored === false ? 'off' : 'on';
-	buttonColor.textContent = `Random color: ` + colorModeOn;
+	const colorMode = colored === false ? 'off' : 'on';
+	buttonColor.textContent = `Random color: ` + colorMode;
 	buttonColor.id = 'buttonColor';
 	body.appendChild(buttonColor);
 }
