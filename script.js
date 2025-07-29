@@ -222,6 +222,8 @@ function fillGridBox(e) {
 		`
 	);
 
+	pixel.classList.add('pen');
+
 	pixel.setAttribute('style', 
 		`
 		width: ${width}px; 
@@ -265,6 +267,7 @@ function createXGridButton() {
 		let newVal = parseInt(prompt('X Grid #: '));
 		if(newVal < 100) {
 			createGrids(newVal, 'x');
+			clearGrid();
 			e.stopPropagation();
 		} else {
 			return alert('Enter the number of lines for the X grid: ');
@@ -284,6 +287,7 @@ function createYGridButton() {
 		let newVal = parseInt(prompt('Y Grid #`: '));
 		if(newVal < 100) {
 			createGrids(newVal, 'y');
+			clearGrid();
 			e.stopPropagation();
 		} else {
 			return alert('Enter the number of lines for the Y grid: ');
@@ -320,6 +324,14 @@ function toggleRandomColors() {
 			console.log(colored);
 			return false;
 		}
+	});
+}
+
+
+function clearGrid() {
+	let penElements = document.querySelectorAll('.pen');
+	penElements.forEach(element => {
+		element.remove();
 	});
 }
 
