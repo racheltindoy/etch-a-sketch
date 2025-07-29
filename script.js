@@ -8,6 +8,9 @@ body.appendChild(linesRow);
 body.appendChild(linesColumn);
 
 
+column = document.querySelector('#column');
+
+
 function generateRGBValue() {
 	const randomNumber = Math.floor(Math.random() * 256);
 	return randomNumber;
@@ -218,23 +221,26 @@ function fillGridBox(e) {
 		`
 	);
 
-	pixel.setAttribute('style', 
-		`
-		width: ${width}px; 
-		height: ${height}px; 
-		position: absolute; 
-		top: ${y1}px; 
-		left: ${x1}px; 
-		background-color: rgb(${rColor}, ${gColor}, ${bColor})
-		`
-	);
+	pixel.classList.add('grid-fill');
+
+	// pixel.setAttribute('style', 
+	// 	`
+	// 	width: ${width}px; 
+	// 	height: ${height}px; 
+	// 	position: absolute; 
+	// 	top: ${y1}px; 
+	// 	left: ${x1}px; 
+	// 	background-color: rgb(${rColor}, ${gColor}, ${bColor})
+	// 	`
+	// );
 
 
 	let isDuplicate = checkDuplicateGridBox(y1, x1);
 
 	if (!isDuplicate) {
 		gridsUsed.push({top: y1, left: x1}); 
-		body.appendChild(pixel);
+		// body.appendChild(pixel);
+		column.insertAdjacentElement('afterend', pixel);
 	} 
 	
 
@@ -264,9 +270,10 @@ function changeXGridButton() {
 			return alert('Must be less than 100!');
 		}
 
-		if(newVal < valX) { removeGrid(newVal, 'x'); } 
+		if(newVal < valX) { removeGrid(newVal, 'x');  } 
 		else if (newVal > valX) { addGrid(newVal, 'x'); } 
 		else { return; }
+		clearGrid();
 	});
 }
 
@@ -284,9 +291,11 @@ function createYGridButton() {
 			return alert('Must be less than 100!');
 		}
 
-		if(newVal < valY) { removeGrid(newVal, 'y'); } 
-		else if (newVal > valY) { addGrid(newVal, 'y'); } 
+		if(newVal < valY) { removeGrid(newVal, 'y');  } 
+		else if (newVal > valY) { addGrid(newVal, 'y');  } 
 		else { return; }
+
+		clearGrid();
 	});
 }
 
@@ -314,6 +323,14 @@ function toggleRandomColors() {
 			colored = false;
 			buttonColor.textContent = `Random color: ` + 'off';
 		}
+	});
+}
+
+
+function clearGrid() {
+	let gridFill = document.querySelectorAll('.grid-fill');
+	gridFill.forEach(element => {
+		element.remove();
 	});
 }
 
