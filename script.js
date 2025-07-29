@@ -31,11 +31,6 @@ let valY;
 
 initializeGrid(valX, valY);
 
-function createGrids(newVal, gridType) {
-	
-	addGrid(newVal, gridType);
-}
-
 function initializeGrid() {
 	if(!valX || !valY) {
 		valY = 16;
@@ -269,15 +264,9 @@ function changeXGridButton() {
 			return alert('Must be less than 100!');
 		}
 
-		if(newVal < valX) {
-			removeGrid(newVal, 'x');
-			// createGrids(newVal, );
-		} else if (newVal > valX) {
-			addGrid(newVal, 'x');
-		} else {
-			console.log('The same!');
-		}
-		
+		if(newVal < valX) { removeGrid(newVal, 'x'); } 
+		else if (newVal > valX) { addGrid(newVal, 'x'); } 
+		else { return; }
 	});
 }
 
@@ -289,14 +278,15 @@ function createYGridButton() {
 	body.appendChild(buttonY);
 
 	buttonY.addEventListener('click', (e) => {
+		e.stopPropagation();
 		let newVal = parseInt(prompt('Y Grid #`: '));
-		if(newVal < 100) {
-			createGrids(newVal, 'y');
-			e.stopPropagation();
-		} else {
-			return alert('Enter the number of lines for the Y grid: ');
+		if(newVal > 100) {
+			return alert('Must be less than 100!');
 		}
-		
+
+		if(newVal < valY) { removeGrid(newVal, 'y'); } 
+		else if (newVal > valY) { addGrid(newVal, 'y'); } 
+		else { return; }
 	});
 }
 
