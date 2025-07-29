@@ -378,8 +378,6 @@ function colorPaletteButton() {
 
 		e.stopPropagation();
 	});
-
-	
 }
 
 
@@ -401,6 +399,11 @@ body.addEventListener('mouseleave', (e) => {
 
 body.addEventListener('mousemove', (e) => {
 	if(isDrawing) { fillGridBox(e); }
+	e.preventDefault();
+});
+
+body.addEventListener('click', (e) => {
+	fillGridBox(e); 
 	e.preventDefault();
 });
 
