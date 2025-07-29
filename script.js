@@ -28,29 +28,30 @@ function checkDuplicateGridBox(top, left) {
 // Create grids
 let valX;
 let valY;
-function createGrids(newVal, gridType) {
-	if(!valY || !valX) { 
-		initializeGrid();
-	}
 
-	removeGrid(newVal, gridType);
+initializeGrid(valX, valY);
+
+function createGrids(newVal, gridType) {
+	
 	addGrid(newVal, gridType);
 }
 
-
 function initializeGrid() {
-	for(let i = 0; i < 16; i++) {
-		const linesColumnGrid = document.createElement('div');
-		linesColumn.appendChild(linesColumnGrid);
-		linesColumnGrid.classList.add('column_grid');
+	if(!valX || !valY) {
+		valY = 16;
+		valX = 16;
 
-		const linesRowGrid = document.createElement('div');
-		linesRow.appendChild(linesRowGrid);
-		linesRowGrid.classList.add('row_grid');
+		for(let i = 0; i < 16; i++) {
+			const linesColumnGrid = document.createElement('div');
+			linesColumn.appendChild(linesColumnGrid);
+			linesColumnGrid.classList.add('column_grid');
+
+			const linesRowGrid = document.createElement('div');
+			linesRow.appendChild(linesRowGrid);
+			linesRowGrid.classList.add('row_grid');
+		}
 	}
 
-	valY = 16;
-	valX = 16;
 }
 
 
@@ -91,7 +92,7 @@ function removeGrid(newVal, gridType) {
 			}
 			valY = newVal;
 		}
-	} else if (gridType == 'x') {
+	} else if (gridType === 'x') {
 		if (newVal < valX) {
 			let lengthToRemove = valX-newVal;
 			for(let i = 0; i < lengthToRemove; i++ ) {
@@ -222,8 +223,6 @@ function fillGridBox(e) {
 		`
 	);
 
-	pixel.classList.add('pen');
-
 	pixel.setAttribute('style', 
 		`
 		width: ${width}px; 
@@ -240,7 +239,7 @@ function fillGridBox(e) {
 
 	if (!isDuplicate) {
 		gridsUsed.push({top: y1, left: x1}); 
-		linesRow.appendChild(pixel);
+		body.appendChild(pixel);
 	} 
 	
 
@@ -257,7 +256,7 @@ function fillGridBox(e) {
 }
 
 
-function createXGridButton() {
+function changeXGridButton() {
 	const buttonX = document.createElement('button');
 	buttonX.textContent = 'Change Grid X';
 	buttonX.id = 'buttonX';
@@ -265,12 +264,18 @@ function createXGridButton() {
 
 	buttonX.addEventListener('click', (e) => {
 		let newVal = parseInt(prompt('X Grid #: '));
-		if(newVal < 100) {
-			createGrids(newVal, 'x');
-			clearGrid();
-			e.stopPropagation();
+		if(newVal > 100) {
+			console.log("TRIGGERED");
+			return alert('Must be less than 100!');
+		}
+
+		if(newVal < valX) {
+			removeGrid(newVal, 'x');
+			// createGrids(newVal, );
+		} else if (newVal > valX) {
+			addGrid(newVal, 'x');
 		} else {
-			return alert('Enter the number of lines for the X grid: ');
+			console.log('The same!');
 		}
 		
 	});
@@ -287,7 +292,6 @@ function createYGridButton() {
 		let newVal = parseInt(prompt('Y Grid #`: '));
 		if(newVal < 100) {
 			createGrids(newVal, 'y');
-			clearGrid();
 			e.stopPropagation();
 		} else {
 			return alert('Enter the number of lines for the Y grid: ');
@@ -328,14 +332,6 @@ function toggleRandomColors() {
 }
 
 
-function clearGrid() {
-	let penElements = document.querySelectorAll('.pen');
-	penElements.forEach(element => {
-		element.remove();
-	});
-}
-
-
 let isDrawing = false;
 body.addEventListener('mousedown', (e) => {
 	isDrawing = true;
@@ -364,7 +360,7 @@ body.addEventListener('mousemove', (e) => {
 
 createRandomColorsButton();
 toggleRandomColors();
-createXGridButton();
+changeXGridButton();
 createYGridButton();
 createGrids();
 
