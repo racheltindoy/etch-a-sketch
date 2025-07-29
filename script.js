@@ -291,13 +291,12 @@ function createYGridButton() {
 }
 
 
-let colored;
-if(!colored) {colored = false; }
+let colored = false;
 
 function createRandomColorsButton() {
 	const buttonColor = document.createElement('button');
-	const colorOnOrOff = colored === false ? 'off' : 'on';
-	buttonColor.textContent = `Random color: ` + colorOnOrOff;
+	const colorModeOn = colored === false ? 'off' : 'on';
+	buttonColor.textContent = `Random color: ` + colorModeOn;
 	buttonColor.id = 'buttonColor';
 	body.appendChild(buttonColor);
 }
@@ -307,16 +306,13 @@ function toggleRandomColors() {
 
 	buttonColor.addEventListener('click', (e) => {
 		e.stopPropagation();
+
 		if(colored === false) {
 			colored = true;
 			buttonColor.textContent = `Random color: ` + 'on';
-			console.log(colored);
-			return colored;
 		} else {
 			colored = false;
 			buttonColor.textContent = `Random color: ` + 'off';
-			console.log(colored);
-			return false;
 		}
 	});
 }
